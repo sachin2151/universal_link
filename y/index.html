@@ -3,6 +3,8 @@
 <head>
     <title>Welcome to Our App</title>
     <script type="text/javascript">
+        var redirectAttempted = false; // Flag to prevent multiple redirects
+
         function redirectToStore() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
             console.log('User Agent: ' + userAgent);
@@ -13,16 +15,23 @@
                 // Attempt to open the app using your custom URL scheme
                 window.location = 'https://universal-link-57390.web.app/';
 
-                // Wait for 3 seconds to see if the app can handle the URL
+                // Set a timeout to redirect to the Play Store if the app is not opened
                 setTimeout(function() {
-                    // Check if the document is still visible; if it is, redirect to the Play Store
-                    if (document.visibilityState === 'visible') {
+                    if (!redirectAttempted && document.visibilityState === 'visible') {
                         console.log('App not opened, redirecting to Play Store.');
                         window.location = 'https://play.google.com/store/apps/details?id=com.toolKitX.safety';
-                    } else {
-                        console.log('App opened successfully.');
+                        redirectAttempted = true;
                     }
-                }, 3000); // 3000 milliseconds = 3 seconds
+                }, 1500); // 1500 milliseconds = 1.5 seconds
+
+                // Add event listener for visibility change
+                document.addEventListener('visibilitychange', function() {
+                    if (!redirectAttempted && document.visibilityState === 'visible') {
+                        console.log('App not opened after visibility change, redirecting to Play Store.');
+                        window.location = 'https://play.google.com/store/apps/details?id=com.toolKitX.safety';
+                        redirectAttempted = true;
+                    }
+                });
             } else {
                 // Optional: Handle non-Android devices
                 console.log('Non-Android device detected.');
@@ -35,7 +44,7 @@
     </script>
 </head>
 <body>
-    <h1>Welcome to SACHIN SINGH</h1>
+    <h1>Welcome to Universal Link</h1>
     <p id="message">Please wait, we are attempting to open the app...</p>
     <p>If you are not redirected and you are using an Android device, <a href="#" onclick="redirectToStore()">click here</a> to download the app from Google Play Store.</p>
 </body>
