@@ -3,25 +3,23 @@
 <head>
     <title>Welcome to Our App</title>
     <script type="text/javascript">
-        // Function to redirect to Google Play Store if the app is not installed
         function redirectToStore() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
             // Check if the user's device is Android
             if (/android/i.test(userAgent)) {
-                // Attempt to open the app using your custom URL scheme, e.g., "yourapp://"
-                window.location = 'https://universal-link-57390.web.app/';
+                // Attempt to open the app using your custom URL scheme
+                window.location = 'yourapp://path/to/content';
 
-                // Set timeout to check if the app opened successfully
-                var start = Date.now();
+                // Wait for 1 second to see if the app can handle the URL
                 setTimeout(function() {
-                    // If less than 1 second has passed and the app hasn't opened, redirect to Play Store
-                    if (Date.now() - start < 1000 && document.hidden) {
+                    // Check if the document is still visible; if it is, redirect to the Play Store
+                    if (document.visibilityState === 'visible') {
                         window.location = 'https://play.google.com/store/apps/details?id=com.example.mmfsl';
                     }
-                }, 500); // Check after 0.5 seconds
+                }, 1000); // 1000 milliseconds = 1 second
             } else {
-                // Handle non-Android devices (optional)
+                // Optional: Handle non-Android devices
                 document.getElementById('message').textContent = "This content is available on Android devices via our mobile app.";
             }
         }
@@ -31,8 +29,8 @@
     </script>
 </head>
 <body>
-<h1>Welcome to Our App!</h1>
-<p id="message">Please wait, we are attempting to open the app...</p>
-<p>If you are not redirected and you are using an Android device, <a href="#" onclick="redirectToStore()">click here</a> to download the app from Google Play Store.</p>
+    <h1>Welcome to Our App!</h1>
+    <p id="message">Please wait, we are attempting to open the app...</p>
+    <p>If you are not redirected and you are using an Android device, <a href="#" onclick="redirectToStore()">click here</a> to download the app from Google Play Store.</p>
 </body>
 </html>
