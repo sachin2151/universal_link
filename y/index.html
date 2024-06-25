@@ -2,25 +2,39 @@
 <html>
 <head>
     <title>Welcome to Our App</title>
-    <meta http-equiv="refresh" content="0;url=intent://path/to/content#Intent;scheme=yourapp;package=com.example.mmfsl;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.example.mmfsl;end">
+    <meta charset="UTF-8">
     <script type="text/javascript">
-        function checkDeviceAndRedirect() {
+        function redirectToApp() {
             var userAgent = navigator.userAgent || navigator.vendor || window.opera;
 
             // Check if the user's device is Android
-            if (!/android/i.test(userAgent)) {
+            if (/android/i.test(userAgent)) {
+                // Construct the intent URL
+                var intentUrl = 'intent://path/to/content#Intent;scheme=yourapp;package=com.example.mmfsl;S.browser_fallback_url=https%3A%2F%2Fplay.google.com%2Fstore%2Fapps%2Fdetails%3Fid%3Dcom.example.mmfsl;end';
+
+                // Redirect to the intent URL
+                window.location = intentUrl;
+
+                // Set a fallback timeout for non-supporting browsers
+                setTimeout(function() {
+                    // Check if the document is still visible; if it is, redirect to the Play Store
+                    if (document.visibilityState === 'visible') {
+                        window.location = 'https://play.google.com/store/apps/details?id=com.example.mmfsl';
+                    }
+                }, 1000); // 1000 milliseconds = 1 second
+            } else {
                 // Display a message if not on an Android device
                 document.getElementById('message').textContent = "This content is available on Android devices via our mobile app.";
             }
         }
 
-        // Execute when the page is fully loaded
-        window.onload = checkDeviceAndRedirect;
+        // Execute the redirection logic when the page loads
+        window.onload = redirectToApp;
     </script>
 </head>
 <body>
     <h1>Welcome to Our App!</h1>
     <p id="message">Please wait, we are attempting to open the app...</p>
-    <p>If you are not redirected and you are using an Android device, <a href="#" onclick="checkDeviceAndRedirect()">click here</a> to download the app from Google Play Store.</p>
+    <p>If you are not redirected and you are using an Android device, <a href="https://play.google.com/store/apps/details?id=com.example.mmfsl">click here</a> to download the app from Google Play Store.</p>
 </body>
 </html>
