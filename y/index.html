@@ -10,7 +10,7 @@
             // Check if the user's device is Android
             if (/android/i.test(userAgent)) {
                 // Attempt to open the app using your custom URL scheme, e.g., "yourapp://"
-                window.location ='https://universal-link-57390.web.app/';
+                window.location = 'https://universal-link-57390.web.app/';
 
                 // Set timeout to check if the app opened successfully
                 var start = Date.now();
@@ -20,11 +20,6 @@
                         window.location = 'https://play.google.com/store/apps/details?id=com.example.mmfsl';
                     }
                 }, 500); // Check after 0.5 seconds
-
-                // If the app is not installed, redirect to the Google Play Store after 2 seconds
-                setTimeout(function() {
-                    window.location = 'https://play.google.com/store/apps/details?id=com.example.mmfsl';
-                }, 2000); // 2000 milliseconds = 2 seconds
             } else {
                 // Handle non-Android devices (optional)
                 document.getElementById('message').textContent = "This content is available on Android devices via our mobile app.";
