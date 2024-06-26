@@ -80,14 +80,14 @@
                 window.location = 'yourapp://path/to/content';
                 setTimeout(function() {
                     if (document.visibilityState === 'visible') {
-                        window.location = 'https://play.google.com/store/apps/details?id=com.example.mmfsl';
+                        window.location = 'https://play.google.com/store/apps/details?id=com.toolKitX.safety';
                     }
                 }, 50);
             } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
                 window.location = 'yourapp://path/to/content';
                 setTimeout(function() {
                     if (document.visibilityState === 'visible') {
-                        window.location = 'https://apps.apple.com/us/app/example-app/id123456789';
+                        window.location = 'https://apps.apple.com/us/app/com.toolkitx.safety.app';
                     }
                 }, 50);
             } else {
@@ -100,7 +100,7 @@
         }
 
         function redirectToAppStore() {
-            window.location = 'https://apps.apple.com/us/app/example-app/id123456789';
+            window.location = 'https://apps.apple.com/us/app/com.toolkitx.safety.app';
         }
 
         window.onload = redirectToStore;
